@@ -30,6 +30,23 @@ namespace API.Controllers
             return Ok(taskItems.AsQueryable());
         }
 
+        [HttpGet("id={id}")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> GetTaskItemById([FromRoute] string id)
+        {
+            var taskItem = await taskItemRepository.GetTaskItemById(id);
+            if (taskItem == null)
+            {
+                return NotFound();
+            }
+            return Ok(taskItem);
+        }
+
         [HttpPost("create")]
         [Authorize]
         [ProducesResponseType(201)]
