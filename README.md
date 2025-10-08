@@ -4,70 +4,28 @@
 This is a simple RESTful API for managing tasks. It allows you to create, read, update, and delete tasks.
 
 ---
+## Project Structure
+
+* API/
+	* Controllers/ 
+	* Domain/
+		* Entities/
+		* Interfaces/
+		* Enum/
+	* Application/
+		* DTOs/
+		* Service/
+		* Middleware/
+	* Infrastructure/
+		* Data/
+			* Migrations/
+		* Repositories/
+---
 
 ## Endpoints
-### 1. Get All Tasks
-- **URL:** `/task-item/{userId}`
-- **Method:** `GET`
-- **Description:** Retrieve a list of all tasks of user.
-- **Response:**
-  - **Status Code:** `200 OK`
-  - **Body:**
-	```json
-	[
-	  {
-		"id": 1,
-		"title": "Sample Task",
-		"description": "This is a sample task.",
-		"completed": false
-	  }
-	]
-	```
-### 2. Get Task by ID
-- **URL:** `/task-item/id={id}`
-- **Method:** `GET`
-- **Description:** Retrieve a specific task by its ID.
-- **Response:**
-  - **Status Code:** `200 OK`
-  - **Body:**
-	```json
-	{
-	  "id": 1,
-	  "title": "Sample Task",
-	  "description": "This is a sample task.",
-	  "completed": false
-	}
-	```
-### 3. Create a New Task
-- **URL:** `/task-item/create`
-- **Method:** `POST`
-- **Description:** Create a new task.
-- **Request Body:**
-	```json
-	{
-	  "title": "New Task",
-	  "description": "This is a new task."
-	}
-	```
+### Api Endpoints
 
-### 4. Update a Task
-- **URL:** `/task-item/update/id={id}`
-- **Method:** `PUT`
-- **Description:** Update an existing task.
-- **Request Body:**
-	```json
-	{
-	  "title": "Updated Task",
-	  "description": "This task has been updated.",
-	  "completed": true
-	}
-	```
-### 5. Delete a Task
-- **URL:** `/task-item/delete/id={id}`
-- **Method:** `DELETE`
-- **Description:** Delete a task by its ID.
-- **Response:**
-  - **Status Code:** `204 No Content`
+Api endpoints for managing tasks. All endpoints require Bearer Authentication JWT. [Api Document](My-Task_API_Documentation.json)
 	
 ### Error Handling
 - **404 Not Found:** Returned when a task with the specified ID does not exist.
