@@ -26,6 +26,7 @@ namespace API.Application.Services
                 {
                     return new Response
                     {
+                        StatusCode = 404,
                         Message = "Account does not exist."
                     };
                 }
@@ -33,6 +34,7 @@ namespace API.Application.Services
                 {
                     return new Response
                     {
+                        StatusCode = 400,
                         Message = "Account is banned."
                     };
                 }
@@ -108,6 +110,7 @@ namespace API.Application.Services
                 {
                     return new Response
                     {
+                        StatusCode = 409,
                         Message = "Username or Email already exists."
                     };
                 }

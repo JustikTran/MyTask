@@ -1,5 +1,6 @@
 using API.Application.DTOs.TaskItem;
 using API.Application.DTOs.User;
+using API.Application.Middleware;
 using API.Application.Services;
 using API.Domain.Interfaces;
 using API.Infrastructure.Data;
@@ -51,6 +52,13 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "My Task API",
+        Description = "An ASP.NET Core Web API for managing tasks with JWT Authentication",
+    });
+    options.EnableAnnotations();
     var jwtSecuritySchema = new OpenApiSecurityScheme
     {
         BearerFormat = "JWT",
@@ -71,6 +79,8 @@ builder.Services.AddSwaggerGen(options =>
     {
         { jwtSecuritySchema, Array.Empty<string>() }
     });
+
+    options.OperationFilter<RemoveODataMediaTypesFilter>();
 });
 
 // Config JWT Authentication
@@ -114,7 +124,13 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Task API V1");
+        c.DocumentTitle = "My Task API Documentation";
+        c.DefaultModelsExpandDepth(-1);
+        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+    });
 }
 
 using (var scope = app.Services.CreateScope())
